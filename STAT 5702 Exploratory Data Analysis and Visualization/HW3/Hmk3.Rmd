@@ -1,6 +1,6 @@
 ---
 title: "Homework #3"
-author: Xinyuan Cao (xc2461)
+author: Youki Cao
 Data: Oct 30 2018
 output: pdf_document
 ---
