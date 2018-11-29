@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Hmk5 Q2</title>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+
+	</head>
+	<body>
+	
+	  <h3>Click anywhere to add a point.</h3>
+
+	  
+		<script type="text/javascript">
+
+			//Width and height of svg
+			var w = 600;
+			var h = 400;
+			var padding = 30;
+			
+			// axis min / max
+		  var xmin = -50;
+		  var xmax = 50;
+		  var ymin = -30;
+		  var ymax = 30;
+		  
+		
+			//		Scale functions
+      var xScale = d3.scaleLinear().domain([xmin, xmax]).range([padding, w - padding]);
+      
+      var yScale = d3.scaleLinear().domain([ymin, ymax]).range([h - padding, padding]);
+
+			//    Define X axis and Y axis
+			var xAxis = d3.axisBottom().scale(xScale).ticks(5);
+      
+      var yAxis = d3.axisLeft().scale(yScale).ticks(7);
+
+			//    Create SVG element		
+			var svg = d3.select("body").append("svg").attr("width", w).attr("height", h);
+			
+			//    Create axes
+			svg.append("g").attr("class", "xAxis")
+			.attr("transform", 'translate(' + 0 +',' + h/2 + ')')
+      .call(xAxis);
+      
+      svg.append("g").attr("class", "yAxis")
+      .attr("transform", 'translate(' + w/2 + ',' + 0 +')')
+      .call(yAxis);
+					
+			//    Create blank text element
+			svg.append("text").attr("x", "5").attr("y", "390").attr("id", "coord_label")
+			.style("font-weight", "bold").style("font-size", "18px");
+				
+			//    Click behavior	
+			var round = d3.format(".1f");
+      svg.on("click", function() {
+          var coords = d3.mouse(this);
+          svg.append("circle").attr("cx", coords[0]).attr("cy", coords[1])
+          .attr("fill", "red").attr("r", "5");
+          svg.select("#coord_label").text("New point added at: "
+          + round(xScale.invert(coords[0])) + ", "
+          + round(yScale.invert(coords[1])));
+      })
+
+		</script>
+	</body>
+</html>
